@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Route::resource('/eth', ETHController::class)->only([ 
 	'index', 'show', 'store'
-]);
+])->parameters(['eth' => 'address']);
 
 Route::resource('/btc', BTCController::class)->only([ 
 	'index', 'show'
-]);
+])->parameters(['btc' => 'address']);

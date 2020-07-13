@@ -20,8 +20,11 @@ class ETHController extends Controller
      */
     public function index()
     {
-        $result = $this->proxy->get();
-        dd($result);
+        $addresses = $this->proxy->get();
+        return view('index', [
+            'addresses' => $addresses,
+            'symbol'    =>  'eth',
+        ]);
     }
 
     /**
@@ -34,7 +37,13 @@ class ETHController extends Controller
     {
         $name = $request->name;
         $result = $this->proxy->create($name);
-        dd($result);
+        $addresses = $this->proxy->get();
+        
+        return view('index', [
+            'newAddress'   =>  $result->address,
+            'addresses' => $addresses,
+            'symbol'    =>  'eth',
+        ]);
     }
 
     /**
@@ -43,9 +52,13 @@ class ETHController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($name)
+    public function show($address)
     {
-        $result = $this->proxy->getByName($name);
-        dd($result);
+        $balance = $this->proxy->getByName($address);
+        return view('show', [
+            'address'   =>  $address,
+            'balance' => $balance,
+            'symbol'    =>  'eth',
+        ]);
     }    
 }

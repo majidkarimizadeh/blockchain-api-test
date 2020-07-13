@@ -20,8 +20,11 @@ class BTCController extends Controller
      */
     public function index()
     {
-        $result = $this->proxy->get();
-        dd($result);
+        $addresses = $this->proxy->get();
+        return view('index', [
+            'addresses' => $addresses,
+            'symbol'    =>  'btc',
+        ]);
     }
 
     /**
@@ -30,9 +33,13 @@ class BTCController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($name)
+    public function show($address)
     {
-        $result = $this->proxy->getByName($name);
-        dd($result);
+        $balance = $this->proxy->getByName($address);
+        return view('show', [
+            'address'   =>  $address,
+            'balance' => $balance,
+            'symbol'    =>  'btc',
+        ]);
     }
 }
