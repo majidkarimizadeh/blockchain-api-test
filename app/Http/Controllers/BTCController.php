@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Proxy;
+use App\Proxies\Proxy;
 
 class BTCController extends Controller
 {
@@ -20,7 +20,7 @@ class BTCController extends Controller
      */
     public function index()
     {
-        $addresses = $this->proxy->get();
+        $addresses = $this->proxy->getAccountList();
         return view('index', [
             'addresses' => $addresses,
             'symbol'    =>  'btc',
@@ -35,7 +35,7 @@ class BTCController extends Controller
      */
     public function show($address)
     {
-        $balance = $this->proxy->getByName($address);
+        $balance = $this->proxy->getAccountBalance($address);
         return view('show', [
             'address'   =>  $address,
             'balance' => $balance,

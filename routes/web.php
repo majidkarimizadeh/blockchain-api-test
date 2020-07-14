@@ -15,10 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/eth', ETHController::class)->only([ 
-	'index', 'show', 'store'
-])->parameters(['eth' => 'address']);
+Route::resource('/eth', ETHController::class)
+	->only([ 'index', 'show', 'store'])
+	->middleware('wallex.auth')
+	->parameters(['eth' => 'address']);
 
-Route::resource('/btc', BTCController::class)->only([ 
-	'index', 'show'
-])->parameters(['btc' => 'address']);
+Route::resource('/btc', BTCController::class)
+	->only([ 'index', 'show' ])
+	->middleware('wallex.auth')
+	->parameters(['btc' => 'address']);

@@ -88,6 +88,7 @@
                     <a href="{{ route('btc.index') }}">BTC</a>
                     <a href="{{ route('eth.index') }}">ETH</a>
                 </div>
+
             </div>
         </div>
     </body>

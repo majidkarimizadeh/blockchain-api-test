@@ -7,13 +7,23 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <style>
+        html, body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
 
     <title>Wallex Test :)</title>
   </head>
   <body>
 
+    <a class="btn btn-default" href="{{ route('btc.index') }}">BTC</a>
+    <a class="btn btn-default" href="{{ route('eth.index') }}">ETH</a>
     <div class="jumbotron m-5">
-        <h1 class="display-4 mb-5">Hello Wallex :)</h1>
+        <h1 class="display-5 mb-5">Hello Wallex :)</h1>
         @yield('content')
     </div>
     

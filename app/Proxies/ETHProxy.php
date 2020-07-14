@@ -1,28 +1,29 @@
 <?php
 
-namespace App\Services;
+namespace App\Proxies;
 
 use Web3\RequestManagers\HttpRequestManager;
 use Web3\Providers\HttpProvider;
-use App\Contracts\Write;
-use App\Contracts\Read;
+use App\Contracts\Writeable;
+use App\Contracts\Readable;
 use App\Models\Account;
-use App\Proxy;
+use App\Proxies\Proxy;
 use Web3\Web3;
 
-class ETHService extends Proxy implements Read, Write
+class ETHProxy extends Proxy implements Readable, Writeable
 {
     public $web3;
     public $personal;
 
     public function __construct()
     {
+        // TODO: should move to .env
         $provider = new HttpProvider(new HttpRequestManager('HTTP://127.0.0.1:7545'));
         $this->web3 = new Web3($provider);
         $this->personal = $this->web3->personal;
     }
 
-	public function get() 
+	public function getAccountList() 
 	{
         $allAccounts = null;
         $this->web3->eth->accounts(function ($err, $accounts) use (&$allAccounts) {
@@ -35,10 +36,10 @@ class ETHService extends Proxy implements Read, Write
 		return $allAccounts;
 	}
 
-    public function getByName($account) 
+    public function getAccountBalance($address) 
     {
         $accountBalance = null;
-        $this->web3->eth->getBalance($account, function ($err, $balance) use (&$accountBalance) {
+        $this->web3->eth->getBalance($address, function ($err, $balance) use (&$accountBalance) {
             if ($err !== null) {
                 echo 'Error: ' . $err->getMessage();
                 return;
@@ -48,7 +49,7 @@ class ETHService extends Proxy implements Read, Write
     	return $accountBalance;
     }
 
-    public function create($name) 
+    public function createAcount($name) 
     {
         $newAccount = null;
         $this->personal->newAccount($name, function ($err, $account) use (&$newAccount) {

@@ -23,7 +23,7 @@
 	<table class="table">
 		<thead>
 		    <tr>
-		      <th scope="col">Address</th>
+		      <th scope="col">Addresses</th>
 		      <th scope="col">Action</th>
 		    </tr>
 		</thead>
@@ -31,7 +31,7 @@
 			@foreach($addresses as $address)
 		    	<tr>
 		    		<th>{{ $address }}</th>
-	      			<td><a href="{{ route("{$symbol}.show", ['address' => $address]) }}">view</a></td>
+	      			<td><a href="{{ route("{$symbol}.show", ['address' => $address]) }}">View Balance</a></td>
 	    		</tr>
 			@endforeach
   		</tbody>

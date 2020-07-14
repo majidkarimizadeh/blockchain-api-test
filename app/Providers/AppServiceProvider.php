@@ -5,9 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\BTCController;
 use App\Http\Controllers\ETHController;
-use App\Services\BTCService;
-use App\Services\ETHService;
-use App\Proxy;
+use App\Proxies\BTCProxy;
+use App\Proxies\ETHProxy;
+use App\Proxies\Proxy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,13 +21,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->when(BTCController::class)
             ->needs(Proxy::class)
             ->give(function () {
-                return new BTCService();
+                return new BTCProxy();
             });
 
         $this->app->when(ETHController::class)
             ->needs(Proxy::class)
             ->give(function () {
-                return new ETHService();
+                return new ETHProxy();
             });
     }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Proxy;
+use App\Proxies\Proxy;
 
 class ETHController extends Controller
 {
@@ -20,7 +20,7 @@ class ETHController extends Controller
      */
     public function index()
     {
-        $addresses = $this->proxy->get();
+        $addresses = $this->proxy->getAccountList();
         return view('index', [
             'addresses' => $addresses,
             'symbol'    =>  'eth',
@@ -36,8 +36,8 @@ class ETHController extends Controller
     public function store(Request $request)
     {
         $name = $request->name;
-        $result = $this->proxy->create($name);
-        $addresses = $this->proxy->get();
+        $result = $this->proxy->createAcount($name);
+        $addresses = $this->proxy->getAccountList();
         
         return view('index', [
             'newAddress'   =>  $result->address,
@@ -54,7 +54,7 @@ class ETHController extends Controller
      */
     public function show($address)
     {
-        $balance = $this->proxy->getByName($address);
+        $balance = $this->proxy->getAccountBalance($address);
         return view('show', [
             'address'   =>  $address,
             'balance' => $balance,
